@@ -1,0 +1,12 @@
+# Ignore Node.js dependencies
+node_modules/
+
+# Ignore log files and other generated files
+*.log
+*.log.*
+*.log-*
+*.pid
+npm-debug.log*
+
+# Ignore Visual Studio Code settings
+.vscode/
