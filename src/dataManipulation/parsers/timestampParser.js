@@ -2,7 +2,7 @@ export function parseTimestamp(data) {
     let date
 
     if (data.CreateDate && typeof data.CreateDate === 'string') {
-        date = date.CreateDate
+        date = data.CreateDate
     } else if (data.FileDate && typeof data.FileDate === 'string') {
         date = data.FileDate
     }
@@ -15,7 +15,7 @@ export function parseTimestamp(data) {
         }
     }
 
-    console.error(`Failed to parse timestamp: ${data.CreateDate }`)
+    console.error(`Failed to parse timestamp ${date}`)
     console.log(data)
     return 'N/A'    
 }
