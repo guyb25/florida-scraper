@@ -9,20 +9,20 @@ import { buildImgLinks } from "./dataManipulation/stringBuilders/imgLinkBuilder.
 import { urlConfig } from "./config/urlConfig.js"
 
 export async function scrape(props) {
-    const records = await getInstrumentsList(urlConfig.criteriaSearchUrl, {
+    const instrumentsList = await getInstrumentsList(urlConfig.criteriaSearchUrl, {
         full_name: `${props.lastname}, ${props.firstname}`,
         file_date_start: props.fromDate,
         file_date_end: props.thruDate,
     })
 
-    if (!records) {
+    if (!instrumentsList) {
         return []
     }
 
     // it's possible to take advantage of parallel report building here, but the rate limiter is the real limit here rather than synchronous execution
     let reports = []
-    for (const record of records) {
-        let report = await buildReport(record)
+    for (const instrument of instrumentsList) {
+        let report = await buildReport(instrument)
 
         if (report) {
             reports.push(report)
@@ -32,8 +32,8 @@ export async function scrape(props) {
     console.log(reports)
 }
 
-async function buildReport(record) {
-    let data = await getInstrumentData(urlConfig.loadInstrumentUrl, record)
+async function buildReport(instrument) {
+    let data = await getInstrumentData(urlConfig.loadInstrumentUrl, instrument)
 
     if (!data) {
         return
