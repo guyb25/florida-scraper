@@ -21,6 +21,7 @@ export async function scrape(props) {
     }
 
     // execute async calls to build reports in parallel
+    // TODO: consider adding concurrency control to avoid failing due to the rate limiter
     const reportPromises = instrumentsList.map(instrument => buildReport(instrument));
     let reports = await Promise.all(reportPromises);
     reports = reports.filter(report => !!report)
