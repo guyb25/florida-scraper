@@ -1,19 +1,21 @@
 /** Parses the "from" party in the instrument. Direction 1 stands for the "from" side. */
 export function parseFrom(data) {
-    if (!data.PartyCollection || !Array.isArray(data.PartyCollection)) {
-        console.error(`unable to retrieve party information `)
-        return []
-    }
-
-    return data.PartyCollection.filter(party => party.Direction == 1).map(party => party.PartyName)
+    return parse(data, 1)
 }
 
 /** Parses the "to" party in the instrument. Direction 0 stands for the "to" side. */
 export function parseTo(data) {
+    return parse(data, 0)
+}
+
+function parse(data, direction) {
     if (!data.PartyCollection || !Array.isArray(data.PartyCollection)) {
-        console.error(`unable to retrieve party information `)
+        console.error({
+            msg: `unable to retrieve party information for instrument`,
+            data: data
+        })
         return []
     }
     
-    return data.PartyCollection.filter(party => party.Direction == 0).map(party => party.PartyName)
+    return data.PartyCollection.filter(party => party.Direction == direction).map(party => party.PartyName)
 }

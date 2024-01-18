@@ -16,18 +16,14 @@ export async function scrape(props) {
     })
 
     if (!instrumentsList) {
-        return []
+        console.log([])
+        return
     }
 
-    // it's possible to take advantage of parallel report building here, but the rate limiter is the real limit here rather than synchronous execution
-    let reports = []
-    for (const instrument of instrumentsList) {
-        let report = await buildReport(instrument)
-
-        if (report) {
-            reports.push(report)
-        }
-    }
+    // execute async calls to build reports in parallel
+    const reportPromises = instrumentsList.map(instrument => buildReport(instrument));
+    let reports = await Promise.all(reportPromises);
+    reports = reports.filter(report => !!report)
 
     console.log(reports)
 }

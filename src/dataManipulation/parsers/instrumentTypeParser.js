@@ -1,6 +1,9 @@
 export function parseInstrumentType(data) {
     if (!data.InstrumentType || !data.InstrumentType.Description) {
-        console.error(`Failed to parse instrument type for ${data}`)
+        console.error({
+            msg: `Failed to parse instrument type for instrument`,
+            data: data
+        })
         return 'N/A'
     }
 

@@ -10,6 +10,9 @@ export async function getInstrumentsList(url, criteria) {
     }
 
     catch (e) {
-        console.error(`failed to fetch any data from the server. error: ${e}`)
+        console.error({
+            msg: `failed to fetch instrument list`,
+            err: e
+        })
     }
 }

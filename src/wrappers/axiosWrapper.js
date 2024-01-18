@@ -6,8 +6,8 @@ export async function axiosGet(route, options) {
         console.error(`request to ${route} failed`)
     }
 
-    if (res.Error) {
-        console.error(res)
+    if (res.data && typeof res.data === 'string' && JSON.parse(res.data).Error) {
+        throw new Error(res.data)
     }
 
     return res

@@ -15,7 +15,10 @@ export function parseTimestamp(data) {
         }
     }
 
-    console.error(`Failed to parse timestamp ${date}`)
-    console.log(data)
+    console.error({
+        msg: `Failed to parse timestamp for instrument`,
+        data: data
+    })
+    
     return 'N/A'    
 }
